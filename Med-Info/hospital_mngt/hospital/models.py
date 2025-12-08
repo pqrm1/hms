@@ -26,3 +26,4 @@ class Appointment(models.Model):
 
     def __str__(self):
         return f"{self.doctor} with {self.patient} on {self.date} at {self.time.strftime('%I:%M %p')}"
+
