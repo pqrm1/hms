@@ -1,0 +1,27 @@
+{%include 'base.html'%}
+{%load static%}
+{%include 'navigation.html'%}
+
+<div>
+    <h2> View Doctor </h2>
+    <table>
+        <thead>
+            <tr>
+                <th>DoctorId</th>
+                <th>Name</th>
+                <th>Mobile</th>
+                <th>Special</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for i in doc%}
+            <tr>
+                <td>{{i.id}}</td>
+                <td>{{i.name}}</td>
+                <td>{{i.mobile}}</td>
+                <td>{{i.special}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
