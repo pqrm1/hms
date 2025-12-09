@@ -11,25 +11,23 @@
 
 
 <div>
-    <h2 class="text-center"> View doctor </h2>
+    <h2 class="text-center"> View patient </h2>
     <table id="example" class="table table-hover">
         <thead>
             <tr>
-                <th class="text-left"> Doctor ID </th>
                 <th> Name </th>
-                <th> Special </th>
+                <th> Gender </th>
                 <th class="text-left"> Mobile </th>
                 <th> Action</th>
             </tr>
         </thead>
         <tbody>
-            {%for i in doc%}
+            {%for i in pat%}
             <tr>
-                <td class="text-left">{{i.id}}</td>
                 <td>{{i.name}}</td>
-                <td>{{i.special}}</td>
+                <td>{{i.gender}}</td>
                 <td class="text-left">{{i.mobile}}</td>
-                <td><a href="{%url 'delete_doctor' i.id%}" onclick="return confirm('Are you sure?')" class="btn btn-danger">Delete</a> </td>
+                <td><a href="{%url 'delete_patient' i.id%}" onclick="return confirm('Are you sure?')" class="btn btn-danger">Delete</a> </td>
             </tr>
             {% endfor %}
         </tbody>

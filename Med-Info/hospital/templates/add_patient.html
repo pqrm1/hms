@@ -1,0 +1,41 @@
+{%include 'base.html'%}
+{%load static%}
+{%include 'navigation.html'%}
+
+
+{% block content %}
+<style>
+    body{
+        background-color: #cccccc;
+    }
+</style>
+        {% if error == "no"%}
+        <script>
+            alert("Record saved successfully");
+            window.location.replace ("{% url 'view_patient' %}");
+        </script>
+        {% endif %}
+
+    {% if error == "yes"%}
+        <script>
+            alert("Invalid Input");
+
+        </script>
+    {% endif %}
+
+
+    <div class="container">
+        <h2 class="text-center"> Add Patient </h2>
+        <form method="POST">
+            {% csrf_token %}
+            <label>Patient Name</label>
+            <input type="text" class="form-control" name="name">
+            <label>Gender</label>
+            <input type="text" class="form-control" name="gender">
+            <label>Mobile</label>
+            <input type="text" class="form-control" name="mobile">
+
+            <input type="submit" value="Add Patient" class="form-control btn btn-primary">
+        </form>
+    </div>
+{% endblock content %}

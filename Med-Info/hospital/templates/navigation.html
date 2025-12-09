@@ -29,7 +29,7 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="{%url 'view_doctor' %}">View Doctor</a>
-            <a class="dropdown-item" href="#">Add Doctor</a>
+            <a class="dropdown-item" href="{%url 'add_doctor'%}">Add Doctor</a>
           </div>
         </li>
           <li class="nav-item dropdown">
@@ -37,13 +37,13 @@
             Patient
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">View Patient</a>
-            <a class="dropdown-item" href="#">Add Patient</a>
+            <a class="dropdown-item" href="{%url 'view_patient'%}">View Patient</a>
+            <a class="dropdown-item" href="{%url 'add_patient'%}">Add Patient</a>
           </div>
         </li>
 
           <li class="nav-item">
-          <a class="nav-link" href="{%url 'logout_admin'%}" >
+          <a class="nav-link" href="{%url 'logout_admin'%}"  >
             Logout
           </a>
           </li>
