@@ -1,0 +1,37 @@
+{%include 'base.html'%}
+{%load static%}
+{%include 'navigation.html'%}
+
+
+{% block content %}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Doctor Registration</h2>
+
+
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label>Doctor Name</label>
+                    <input type="text" name="name" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label>Mobile</label>
+                    <input type="text" name="mobile" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label>Specialization</label>
+                    <input type="text" name="special" class="form-control" placeholder="e.g. Neurologist" required>
+                </div>
+                <button type="submit" class="btn btn-success w-100">Register as Doctor</button>
+            </form>
+            <p class="text-center mt-3">
+                <a href="{% url 'home' %}">Back to Home</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

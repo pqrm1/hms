@@ -11,14 +11,16 @@
 
 
 <div>
-    <h2 class="text-center"> View patient </h2>
+    <h2 class="text-center"> View Appointments </h2>
     <table id="example" class="table table-hover">
         <thead>
             <tr>
-                <th class="text-left"> Patient ID </th>
-                <th> Name </th>
+                <th class="text-left"> Appointment ID</th>
+                <th> Doctor </th>
                 <th> Gender </th>
-                <th class="text-left"> Mobile </th>
+                <th> Patient </th>
+                <th class="text-left"> Date </th>
+                <th class="text-left"> Time </th>
                 <th> Action</th>
             </tr>
         </thead>
@@ -26,10 +28,12 @@
             {%for i in pat%}
             <tr>
                 <td class="text-left">{{i.id}}</td>
-                <td>{{i.name}}</td>
-                <td>{{i.gender}}</td>
+                <td>{{i.doctor}}</td>
+                <td>{{i.patient}}</td>
+                <td>{{i.date}}</td>
+                <td>{{i.time}}</td>
                 <td class="text-left">{{i.mobile}}</td>
-                <td><a href="{%url 'delete_patient' i.id%}" onclick="return confirm('Are you sure?')" class="btn btn-danger">Delete</a> </td>
+                <td><a href="{%url 'delete_appointment' i.id%}" onclick="return confirm('Are you sure?')" class="btn btn-danger">Delete</a> </td>
             </tr>
             {% endfor %}
         </tbody>

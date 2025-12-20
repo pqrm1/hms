@@ -7,4 +7,100 @@
     }
 </style>
 
-<h1>AI here</h1>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<style>
+    body{
+        background-color: #cccccc;
+    }
+</style>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Medical Chatbot Assistant</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container mt-5">
+  <h2 class="text-center mb-4">Medical Chatbot Assistant</h2>
+
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+
+      <div class="mb-3 border rounded p-3 bg-white" style="height: 380px; overflow-y: auto;" id="chatBox">
+        <div class="text-start mb-2">
+          <span class="badge bg-secondary">Hello! I can help patients and doctors with general medical questions. (Not a replacement for a real doctor)</span>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Message</label>
+        <input type="text" id="userInput" class="form-control" placeholder="Ask a medical question...">
+      </div>
+
+      <button class="btn btn-primary w-100" onclick="sendMessage()">Send</button>
+
+      <p class="text-center mt-3">
+        <small class="text-muted">For emergencies, please contact a hospital immediately.</small>
+      </p>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  const chatBox = document.getElementById('chatBox');
+  const userInput = document.getElementById('userInput');
+
+  function addMessage(text, sender) {
+    const msg = document.createElement('div');
+    msg.className = sender === 'user' ? 'text-end mb-2' : 'text-start mb-2';
+    msg.innerHTML = `<span class="badge ${sender === 'user' ? 'bg-primary' : 'bg-secondary'}">${text}</span>`;
+    chatBox.appendChild(msg);
+    chatBox.scrollTop = chatBox.scrollHeight;
+  }
+
+  function botReply(text) {
+    text = text.toLowerCase();
+
+    // Patient-related responses
+    if (text.includes('fever')) return 'Fever can be caused by infection. Drink fluids and consult a doctor if it lasts more than 2 days.';
+    if (text.includes('headache')) return 'Headaches may occur due to stress, dehydration, or illness. Rest and hydration can help.';
+    if (text.includes('cough')) return 'A cough may be due to cold or allergy. If it persists, please see a doctor.';
+    if (text.includes('pain')) return 'Pain can have many causes. Please describe the location and duration.';
+
+    // Doctor-related responses
+    if (text.includes('dosage')) return 'Medication dosage depends on age, weight, and condition. Please follow standard clinical guidelines.';
+    if (text.includes('symptoms')) return 'Please evaluate symptoms carefully and consider patient history before diagnosis.';
+    if (text.includes('diagnosis')) return 'Diagnosis should be confirmed with proper clinical tests and examinations.';
+
+    // General
+    if (text.includes('hello') || text.includes('hi')) return 'Hello! How can I assist you today?';
+    if (text.includes('appointment')) return 'You can book an appointment through the hospital reception or online portal.';
+    if (text.includes('emergency')) return 'This may be an emergency. Please contact emergency services immediately.';
+    if (text.includes('bye')) return 'Take care! Wishing you good health.';
+
+    return 'I can help with general medical guidance for patients and doctors. Please be specific.';
+  }
+
+  function sendMessage() {
+    const text = userInput.value.trim();
+    if (!text) return;
+
+    addMessage(text, 'user');
+    userInput.value = '';
+
+    setTimeout(() => addMessage(botReply(text), 'bot'), 500);
+  }
+
+  userInput.addEventListener('keypress', e => {
+    if (e.key === 'Enter') sendMessage();
+  });
+</script>
+
+</body>
+</html>

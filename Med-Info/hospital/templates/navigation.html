@@ -7,6 +7,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
 
+
         <li class="nav-item">
           <a class="nav-link" href="{%url 'contact'%}">Contacts</a>
         </li>
@@ -20,8 +21,23 @@
           <li class="nav-item">
           <a class="nav-link" href="{%url 'admin_login'%}">Login</a>
         </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Register
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{%url 'patient_register' %}">Patient</a>
+            <a class="dropdown-item" href="{%url 'doctor_register'%}">Doctor</a>
+          </div>
+        </li>
           {% endif%}
           {% if request.user.is_staff %}
+
+                <li class="nav-item">
+          <a class="nav-link" href="{%url 'index'%}">Dashboard</a>
+        </li>
+
 
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -39,6 +55,15 @@
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="{%url 'view_patient'%}">View Patient</a>
             <a class="dropdown-item" href="{%url 'add_patient'%}">Add Patient</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Appointment
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{%url 'view_appointment'%}">View Appointment</a>
+            <a class="dropdown-item" href="{%url 'add_appointment'%}">Add Appointment</a>
           </div>
         </li>
 

@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate, login,logout
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from .models import Doctor,Patient
+from .models import Doctor,Patient,Appointment
 from django.contrib import messages
 
 
@@ -22,7 +22,22 @@ def Chatbot(request):
 def Index(request):
     if not request.user.is_staff:
         return redirect('login')
-    return render(request,'index.html')
+    doctors=Doctor.objects.all()
+    patient=Patient.objects.all()
+    appontments=Appointment.objects.all()
+    d=0
+    p=0
+    a=0
+    
+    for i in doctors:
+        d+=1
+    for i in patient:
+        p+=1
+    for i in appontments:
+        a+=1
+
+    d1={'d':d,'p':p,'a':a}
+    return render(request,'index.html',d1)
 
 def Login(request):
     error=""
@@ -113,3 +128,74 @@ def Add_patient(request):
     d={"error" :error}
     messages.error(request, "All fields are required!")
     return render(request,'add_patient.html',d)
+
+def Add_appointment(request):
+    error=""
+    if not request.user.is_staff:
+        return redirect('admin_login')
+    doctor1=Doctor.objects.all()
+    patient1=Patient.objects.all()
+    if request.method == "POST":
+        d=request.POST.get('doctor')
+        p=request.POST.get('patient')
+        da=request.POST.get('date')
+        t=request.POST.get('time')
+        doctor=Doctor.objects.filter(name=d).first()
+        patient=Patient.objects.filter(name=p).first()
+        try:
+            Appointment.objects.create(doctor=doctor,patient=patient,date=da,time=t)
+            error="no"
+
+        except:
+            error="yes"
+    d={"doctor":doctor1,"patient":patient1,"error" :error}
+    messages.error(request, "All fields are required!")
+    return render(request,'add_appointment.html',d)
+
+def View_appointment(request):
+    if not request.user.is_staff:
+        return redirect('admin_login')
+    pat=Appointment.objects.all()
+    p={'pat':pat}
+    return render(request,'view_appointment.html',p)
+
+def Delete_appointment(request,pid):
+    if not request.user.is_staff:
+        return redirect('admin_login')
+    app=Appointment.objects.get(id=pid)
+    app.delete()
+    messages.success(request, f"Appointment deleted successfully!")
+    return redirect('view_appointment')
+
+
+def Patient_register(request):
+    if request.method == "POST":
+        name = request.POST.get('name')
+        gender = request.POST.get('gender')
+        mobile = request.POST.get('mobile')
+        address = request.POST.get('address')
+
+        if name and mobile:  # basic validation
+            Patient.objects.create(
+                name=name,
+                gender=gender,
+                mobile=mobile,
+                address=address or ''  # address optional
+            )
+
+    return render(request, 'patient_register.html')
+
+def Doctor_register(request):
+    if request.method == "POST":
+        name = request.POST.get('name')
+        mobile = request.POST.get('mobile')
+        special = request.POST.get('special')
+
+        if name and mobile and special:
+            Doctor.objects.create(
+                name=name,
+                mobile=mobile,
+                special=special
+            )
+
+    return render(request, 'doctor_register.html')
